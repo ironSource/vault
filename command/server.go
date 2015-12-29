@@ -42,10 +42,12 @@ func (c *ServerCommand) Run(args []string) int {
 	var dev, verifyOnly bool
 	var configPath []string
 	var logLevel string
+	var uiDir string
 	flags := c.Meta.FlagSet("server", FlagSetDefault)
 	flags.BoolVar(&dev, "dev", false, "")
 	flags.StringVar(&logLevel, "log-level", "info", "")
 	flags.BoolVar(&verifyOnly, "verify-only", false, "")
+	flags.StringVar(&uiDir, "ui-dir", "", "")
 	flags.Usage = func() { c.Ui.Error(c.Help()) }
 	flags.Var((*sliceflag.StringFlag)(&configPath), "config", "config")
 	if err := flags.Parse(args); err != nil {
@@ -273,7 +275,7 @@ func (c *ServerCommand) Run(args []string) int {
 
 	// Initialize the HTTP server
 	server := &http.Server{}
-	server.Handler = vaulthttp.Handler(core)
+	server.Handler = vaulthttp.Handler(core, uiDir)
 	for _, ln := range lns {
 		go server.Serve(ln)
 	}
@@ -498,6 +500,7 @@ General Options:
                       to stderr. Supported values: "trace", "debug", "info",
                       "warn", "err"
 
+  -ui-dir=<path>      Path to a directory that contains the UI frontend.
 `
 	return strings.TrimSpace(helpText)
 }
