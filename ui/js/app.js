@@ -1,8 +1,8 @@
 var app = angular.module('app', [
     'ui.router',
-    'isVaultUi',
 
-    'views.loginCtrl'
+    'views.loginCtrl',
+    'views.mountsCtrl'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
