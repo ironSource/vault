@@ -1,8 +1,9 @@
 angular.module('isVaultUi', ['ui.bootstrap'])
     .service('options', function () {
         
-        $sc
-        var options = {};
+        var options = {
+            
+        };
 
         return options;
     });
