@@ -1,4 +1,5 @@
 var app = angular.module('app', [
+    'ui.bootstrap',
     'ui.router',
     'ui.bootstrap',
     'views.loginCtrl',
