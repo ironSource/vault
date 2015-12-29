@@ -29,7 +29,11 @@ func handleLogical(core *vault.Core, dataOnly bool) http.Handler {
 		case "DELETE":
 			op = logical.DeleteOperation
 		case "GET":
-			op = logical.ReadOperation
+			if strings.HasSuffix(path, "/") {
+				op = logical.ListOperation
+			} else {
+				op = logical.ReadOperation
+			}
 		case "POST":
 			fallthrough
 		case "PUT":
