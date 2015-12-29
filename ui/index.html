@@ -15,15 +15,53 @@
     <script>
         angular.module('app', ['isVaultUi'])
             .controller('MainCtrl', function ($scope) {
-                console.info('test');
+                $scope.section = 'token';
+
+                $scope.setCurrent = function(val) {
+                    $scope.current = val;
+                }
             });
     </script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body ng-controller="MainCtrl">
-
-    <div class="container">
-        <input type="text" ng-model="test">
-        {{test}}
+    <div id="primary">
+        <h2>Select Login Method</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <button type="button" ng-class="{active: current == 1}" class="btn btn-block btn-default btn-lg" ng-click="setCurrent(1); section='token'">Token</button>
+                    <button type="button" ng-class="{active: current == 2}" class="btn btn-block btn-default btn-lg" ng-click="setCurrent(2); section='localUser'">Local User (userpass)</button>
+                    <button type="button" ng-class="{active: current == 3}" class="btn btn-block btn-default btn-lg" ng-click="setCurrent(3); section='federatedUser'">Federated User (ldap)</button>
+                </div>
+                <div class="col-sm-7">
+                   <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"></h3>
+                    </div>
+                    <div class="panel-body" ng-if="section=='token'">
+                        <input type="text" class="form-control" id="token" placeholder="Token">
+                    </div>
+                    <div class="panel-body" ng-if="section=='localUser'">
+                        <div class="form-group">
+                        <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                        <div class="input-group">
+                          <div class="input-group-addon">User</div>
+                          <input type="text" class="form-control" id="username" name="username" placeholder="User">
+                        </div>
+                        <div class="input-group">
+                          <div class="input-group-addon">Password</div>
+                          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel-body" ng-if="section=='federatedUser'">
+                        <input type="text" class="form-control" id="token" placeholder="Token">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
