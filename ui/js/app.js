@@ -1,6 +1,6 @@
 var app = angular.module('app', [
     'ui.router',
-
+    'ui.bootstrap',
     'views.loginCtrl',
     'views.mountsCtrl'
 ]);

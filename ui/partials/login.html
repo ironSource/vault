@@ -1,4 +1,6 @@
 <div class="container login-screen">
+
+    <uib-alert ng-repeat="alert in alerts" type="danger" close="closeAlert()">{{alert.msg}}</uib-alert>
     <div class="panel">
         <h1>Select Login Method</h1>
     </div>
@@ -16,10 +18,10 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="token" placeholder="Token">
+                            <input ng-model="token" type="text" class="form-control" id="token" placeholder="Token">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-default" ng-click="submitForm()">Login</button>
+                    <button type="submit" class="btn btn-default" ng-click="submitForm(token)">Login</button>
                 </div>
             </div>
             <div class="panel panel-default" ng-if="section=='localUser'">

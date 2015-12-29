@@ -7,7 +7,7 @@ angular.module('views.loginCtrl', [])
                 controller: 'loginCtrl'
             });
     }])
-    .controller('loginCtrl', ['$scope','$http' ,function ($scope, $http) {
+    .controller('loginCtrl', ['$scope','$http', '$state' ,function ($scope, $http, $state) {
         $scope.section = 'token';
         $scope.current = 1;
 
@@ -17,15 +17,15 @@ angular.module('views.loginCtrl', [])
 
         $scope.alerts = [];
 
-        $scope.submitForm = function() {
-            $http.defaults.headers.get = { 'x-vault-token' : '9c258fe7-8cdb-fcec-a9a3-72a59762dd96s' };
+        $scope.submitForm = function(token) {
+            $http.defaults.headers.get = { 'x-vault-token' : token };
             $http({
                 method: 'GET',
                 url: '/v1/auth/token/lookup-self'
             }).then(function successCallback(response) {
                 var obj = response.data.data;
-                console.info(obj);
-
+                    $scope.closeAlert();
+                    $state.go('mounts');
             }, function errorCallback(response) {
                 $scope.showError(response.data.errors[0]);
             });
@@ -33,5 +33,9 @@ angular.module('views.loginCtrl', [])
 
         $scope.showError = function( msg ) {
             $scope.alerts[0] = ({msg: msg});
+        }
+
+        $scope.closeAlert = function() {
+            $scope.alerts = [];
         }
     }]);
