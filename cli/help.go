@@ -15,6 +15,7 @@ func HelpFunc(commands map[string]cli.CommandFactory) string {
 	commonNames := map[string]struct{}{
 		"delete":    struct{}{},
 		"path-help": struct{}{},
+		"list":      struct{}{},
 		"read":      struct{}{},
 		"renew":     struct{}{},
 		"revoke":    struct{}{},
