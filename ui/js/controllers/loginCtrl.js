@@ -17,11 +17,28 @@ angular.module('views.loginCtrl', [])
 
         $scope.alerts = [];
 
-        $scope.submitForm = function(token) {
-            $http.defaults.headers.get = { 'x-vault-token' : token };
+        $scope.submitForm = function(type, a, b) {
+
+            var type = type || 'token';
+            var requestUrl = requestMethod = '';
+            var data = {};
+
+            if( type == 'token' ) {
+                $http.defaults.headers.get = { 'x-vault-token' : a };    
+                requestMethod = 'GET';
+                requestUrl = '/v1/auth/token/lookup-self';
+            } else if( type == 'userpass' ) {
+                requestMethod = 'POST';
+                console.info(a);
+                console.info(b);
+                requestUrl = '/v1/auth/userpass/login/'+a;
+                data = JSON.stringify({password:b});
+            }
+
             $http({
-                method: 'GET',
-                url: '/v1/auth/token/lookup-self'
+                method: requestMethod,
+                url: requestUrl,
+                data: data
             }).then(function successCallback(response) {
                 var obj = response.data.data;
                     $scope.closeAlert();

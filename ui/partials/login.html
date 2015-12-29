@@ -17,11 +17,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <div class="input-group">
-                            <input ng-model="token" type="text" class="form-control" id="token" placeholder="Token">
-                        </div>
+                        <input ng-model="token" type="text" class="form-control" id="token" placeholder="Token">
                     </div>
-                    <button type="submit" class="btn btn-default" ng-click="submitForm(token)">Login</button>
+                    <button type="submit" class="btn btn-default" ng-click="submitForm('token', token)">Login</button>
                 </div>
             </div>
             <div class="panel panel-default" ng-if="section=='localUser'">
@@ -32,16 +30,17 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon" style="min-width: 100px;">User</div>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="User">
+                            <input type="text" class="form-control" id="username" name="username" ng-model="login" placeholder="User">
+                            {{}}
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon" style="min-width: 100px;">Password</div>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            <input type="password" class="form-control" id="password" name="password" ng-model="password" placeholder="Password">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-default" ng-click="submitForm()">Login</button>
+                    <button type="submit" class="btn btn-default" ng-click="submitForm('userpass', login, password)">Login</button>
                 </div>
             </div>
             <div class="panel panel-default" ng-if="section=='federatedUser'">
@@ -58,11 +57,11 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon" style="min-width: 100px;">Password</div>
-                            <input type="fedPassword" class="form-control" id="fedPassword" name="password" placeholder="Password">
+                            <input type="fedPassword" class="form-control" id="fedPassword" ng-model="fedPass" name="password" placeholder="Password">
                         </div>
 
                     </div>
-                    <button type="submit" class="btn btn-default" ng-click="submitForm()">Login</button>
+                    <button type="submit" class="btn btn-default" ng-model="submitForm(fedPass, fedLogin)">Login</button>
                 </div>
             </div>
         </div>
