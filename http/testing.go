@@ -30,7 +30,7 @@ func TestServerWithListener(t *testing.T, ln net.Listener, addr string, core *va
 	// for tests.
 	mux := http.NewServeMux()
 	mux.Handle("/_test/auth", http.HandlerFunc(testHandleAuth))
-	mux.Handle("/", Handler(core))
+	mux.Handle("/", Handler(core, ""))
 
 	server := &http.Server{
 		Addr:    ln.Addr().String(),

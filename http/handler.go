@@ -17,7 +17,7 @@ const AuthHeaderName = "X-Vault-Token"
 
 // Handler returns an http.Handler for the API. This can be used on
 // its own to mount the Vault API within another web server.
-func Handler(core *vault.Core) http.Handler {
+func Handler(core *vault.Core, uiDir string) http.Handler {
 	// Create the muxer to handle the actual endpoints
 	mux := http.NewServeMux()
 	mux.Handle("/v1/sys/init", handleSysInit(core))
@@ -44,6 +44,10 @@ func Handler(core *vault.Core) http.Handler {
 	mux.Handle("/v1/sys/rekey/init", handleSysRekeyInit(core))
 	mux.Handle("/v1/sys/rekey/update", handleSysRekeyUpdate(core))
 	mux.Handle("/v1/", handleLogical(core, false))
+
+	if uiDir != "" {
+		mux.Handle("/ui/", http.StripPrefix("/ui/", http.FileServer(http.Dir(uiDir))))
+	}
 
 	// Wrap the handler in another handler to trigger all help paths.
 	handler := handleHelpHandler(mux, core)
