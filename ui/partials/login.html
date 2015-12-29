@@ -51,17 +51,17 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon" style="min-width: 100px;">User</div>
-                            <input type="text" class="form-control" id="fedUsername" name="fedUsername" placeholder="User">
+                            <input type="text" class="form-control" id="fedUsername" name="fedUsername" ng-model="fedLogin" placeholder="User">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon" style="min-width: 100px;">Password</div>
-                            <input type="fedPassword" class="form-control" id="fedPassword" ng-model="fedPass" name="password" placeholder="Password">
+                            <input type="password" class="form-control" id="fedPassword" ng-model="fedPass" name="password" placeholder="Password">
                         </div>
 
                     </div>
-                    <button type="submit" class="btn btn-default" ng-model="submitForm(fedPass, fedLogin)">Login</button>
+                    <button type="submit" class="btn btn-default" ng-click="submitForm('ldap', fedLogin, fedPass)">Login</button>
                 </div>
             </div>
         </div>

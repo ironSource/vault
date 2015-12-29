@@ -25,14 +25,12 @@ angular.module('views.loginCtrl', [])
 
             if( type == 'token' ) {
                 $http.defaults.headers.get = { 'x-vault-token' : a };    
-                requestMethod = 'GET';
                 requestUrl = '/v1/auth/token/lookup-self';
-            } else if( type == 'userpass' ) {
+                requestMethod = 'GET';
+            } else if( type == 'ldap' || type == 'userpass' ) {
                 requestMethod = 'POST';
-                console.info(a);
-                console.info(b);
-                requestUrl = '/v1/auth/userpass/login/'+a;
                 data = JSON.stringify({password:b});
+                requestUrl = '/v1/auth/'+type+'/login/'+a;
             }
 
             $http({
